@@ -39,7 +39,7 @@ public class DriverProgram {
                     listProds(shopCart);
                     break;
                 case 4:
-                    System.out.println(myMap.toString());
+                    listInventory(myMap);
                     break;
                 case 5:
                     in.close();
@@ -100,6 +100,15 @@ public class DriverProgram {
 
     public static void listProds(ArrayList<String> cart) {
         System.out.println(cart);
+    }
+
+    public static void listInventory(Map<String, ArrayList<String>> myMap) {
+        for (String k : myMap.keySet()) {
+            System.out.println(k + ":");
+            for (String v : myMap.get(k)) {
+                System.out.println("\t" + v);
+            }
+        }
     }
 
     private static void printMenu() {
