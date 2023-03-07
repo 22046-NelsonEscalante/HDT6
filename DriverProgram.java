@@ -5,11 +5,15 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
+
+/**
+ * The class that contains the main method for running the program.
+ */
 public class DriverProgram {
     
     public static void main(String[] args) {
 
-        Scanner in = new Scanner(System.in);
+        Scanner in = new Scanner(System.in, "UTF-8");
         ArrayList<String> shopCart = new ArrayList<>();
 
         Map<String, ArrayList<String>> myMap = makeMap(in);
@@ -52,6 +56,12 @@ public class DriverProgram {
     }
 
 
+    /**
+     * This method adds any product to the user's shopping cart.
+     * @param in The scanner to use for user input.
+     * @param myMap The map from which we want to get the products from.
+     * @return The product we want.
+     */
     public static String addProduct(Scanner in, Map<String, ArrayList<String>> myMap) {
         System.out.println("Seleccione la categoría de productos que desea comprar.");
         String cat = "";
@@ -84,6 +94,11 @@ public class DriverProgram {
         return prod;
     }
 
+    /**
+     * This method gives the category for any user-given product.
+     * @param in The scanner to use for user input.
+     * @param myMap The map from which we want to get the category of the products.
+     */
     public static void productCat(Scanner in, Map<String, ArrayList<String>> myMap) {
         System.out.println("Ingrese el producto del que quiere hallar la categoría.");
         String prod = in.nextLine();
@@ -98,6 +113,10 @@ public class DriverProgram {
         System.out.println("El producto que buscó no existe.");
     }
 
+    /**
+     * This method lists all the products in our cart.
+     * @param cart The array with the products we have.
+     */
     public static void listProds(ArrayList<String> cart) {
         System.out.println(cart);
     }
@@ -111,6 +130,9 @@ public class DriverProgram {
         }
     }
 
+    /**
+     * This method prints the main menu to the user.
+     */
     private static void printMenu() {
         System.out.println("\n======= OPCIONES =======");
         System.out.println("1. Añadir un producto al carrito.");
@@ -121,19 +143,42 @@ public class DriverProgram {
         System.out.println("\nSeleccione la opción que desea realizar: ");
     }
 
+    /**
+     * This method creates a map from the user's choice.
+     * @param in The scanner to use for user input.
+     * @return A map implemented in the way the user wants.
+     */
     private static Map<String, ArrayList<String>> makeMap(Scanner in) {
         MapFactory<String, ArrayList<String>> mapMaker = new MapFactory<>();
+        int map = 0;
 
         System.out.println("Seleccione una opción para generar el mapa a utilizar en el programa.");
-        System.out.println("1. HashMap");
-        System.out.println("2. TreeMap");
-        System.out.println("3. LinkedHashMap");
-        System.out.println("\nEscriba el número de su selección.");
-        int map = Integer.parseInt(in.nextLine());
+
+        while (true) {
+            System.out.println("1. HashMap");
+            System.out.println("2. TreeMap");
+            System.out.println("3. LinkedHashMap");
+            System.out.println("\nEscriba el número de su selección.");
+            map = Integer.parseInt(in.nextLine());
+            
+            if ((map > 0) && (map < 4)) {
+                break;
+            } else {
+                System.out.println("Ingrese un valor válido.");
+            }
+        }
+
         Map<String, ArrayList<String>> myMap = mapMaker.newMap(map);
         return myMap;
     }
 
+    /**
+     * This method reads a file and passes its contents to a map.
+     * @param path The location of the file.
+     * @param myMap The map to which the file content's will be passed on to.
+     * @return The map, now with the contents of the file.
+     * @throws Exception An exception for when something goes wrong, generally when the file is not found.
+     */
     private static Map<String, ArrayList<String>> readFile(String path, Map<String, ArrayList<String>> myMap) throws Exception {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"));

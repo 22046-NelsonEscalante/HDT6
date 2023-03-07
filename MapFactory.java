@@ -3,8 +3,19 @@ import java.util.LinkedHashMap;
 import java.util.TreeMap;
 import java.util.Map;
 
+
+/**
+ * The factory for the maps we are going to use.
+ * 
+ * @author 22046-NelsonEscalante
+ */
 public class MapFactory<K, V> {
     
+    /**
+     * This method creates a map with a specific implementation chosen by the user.
+     * @param option the number for the option the user wants to use.
+     * @return a map with the implementation the user chooses.
+     */
     public Map<K, V> newMap(int option) {
 
         Map<K, V> myMap;
